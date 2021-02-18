@@ -82,9 +82,8 @@ def createARandWord():
 
 
     def get_MainDic():
-        lists = ["animals","boys","girls","fruits","countries","musics","colors"]
         MainDic={}
-        for name in lists:
+        for name in ["animals","boys","girls","fruits","countries","musics","colors"]:
             MainDic = dB_To_Dictionary(name, MainDic)
         return MainDic
 
@@ -94,9 +93,8 @@ def createARandWord():
     RandomName = str(random.choice(nnlist))
     Nameslen = len(RandomName)
     print(RandomName)
-    TT = f"The Word is one of the {GuessListName.get()} names and it has {Nameslen} letters"
-    TTTT = "$" * Nameslen
-    playPage([RandomName,TT,TTTT])
+    temp_1 = f"The Word is one of the {GuessListName.get()} names and it has {Nameslen} letters"
+    playPage([RandomName,temp_1,"$" * Nameslen])
 
 
 #this function gets results of the playguess and choose we won or lost
@@ -111,7 +109,7 @@ def ResultGenerator(result):
     f_2.grid(row=1, column=0)
     
     ShownText = ""
-    if result == True:
+    if result:
         Player.coin += 50
         playersDB = sqlite3.connect("PlayersDetails.db")
         c = playersDB.cursor()
@@ -145,8 +143,7 @@ def game_help(Randomdata):
     f_3 = tkinter.Frame(Ghelp)
     f_3.grid(row=2, column=0, columnspan=2)
 
-    l_1 = tkinter.Label(f_1, text="""Each letter costs 10$,
-     write how many letters you want to know:""")
+    l_1 = tkinter.Label(f_1, text="""Each letter costs 10$, write how many letters you want to know:""")
     l_1.grid(row=0, column=0)
     E_1 = tkinter.Entry(f_2, textvariable=LettersCount)
     E_1.grid(row=0,column=0)
@@ -167,9 +164,7 @@ def game_help(Randomdata):
                 try:
                     ChoosenLabel.remove("$")
                 except ValueError:
-                    print("EFA_Error")    
-                    
-                    
+                    print("EFA_Error")                
 
         if ChoosenLabel !=[]:
             print(ChoosenLabel)
@@ -237,13 +232,12 @@ def pLayGuessWhat_1(RData):
 
 #this function gets data from the playpage_2 and chooses if we won or lost or we have choise or not
 def pLayGuessWhat_2(RData):
-    word=GuessLetterV.get()
+    word = GuessLetterV.get()
     if RData[0] == word:
         RData[2] = RData[0]
         ResultGenerator(True)
     else:
         ResultGenerator(False)
-
     return RData
 
 
